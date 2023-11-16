@@ -40,7 +40,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 import axios from 'axios';
+const router = useRouter();
 const user = ref({
   username: '',
   password: '',
@@ -53,8 +55,9 @@ const login = async () => {
     if(res.data.success) {
       const { token, expired } = res.data;
       document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-      console.log(token, expired);
-      console.log(res);
+      router.push({
+        name: 'dashboard',
+      })
     }
   } catch (error) {
     throw new Error(error);
