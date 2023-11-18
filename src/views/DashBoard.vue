@@ -1,10 +1,12 @@
 <template>
+  <SideBarComponent></SideBarComponent>
   <div>
     Dashboard
   </div>
 </template>
 
 <script setup>
+  import SideBarComponent from '@/components/admin/SideBarComponent.vue';
   import { useRouter } from 'vue-router'
   import axios from 'axios';
   const router = useRouter();
