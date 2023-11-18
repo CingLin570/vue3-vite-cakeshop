@@ -16,7 +16,16 @@ export default {
       'lg': '1296px',
       // => @media (min-width: 1296px) { ... }
     },
-    extend: {},
+    extend: {
+      colors: {
+        'brown-700': '#776B5D',
+        'brown-500': '#B0A695',
+        'brown-300': '#EBE3D5',
+        'brown-100': '#F3EEEA',
+        'brown-700-hover': '#6b6053',
+        'brown-700-focus': '#5f554a'
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin')
