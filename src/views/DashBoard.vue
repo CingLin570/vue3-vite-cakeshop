@@ -9,12 +9,16 @@
   import SideBarComponent from '@/components/admin/SideBarComponent.vue';
   import { useRouter } from 'vue-router'
   import axios from 'axios';
+  import CryptoJS from 'crypto-js';
+  import Cookies from 'js-cookie';
   const router = useRouter();
 
   const getToken = async () => {
     try {
-      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-      axios.defaults.headers.common.Authorization = token;
+      const token = Cookies.get('hexToken');
+      const bytes  = CryptoJS.AES.decrypt(token, import.meta.env.VITE_APP_AES);
+      const originalToken = bytes.toString(CryptoJS.enc.Utf8);
+      axios.defaults.headers.common.Authorization = originalToken;
       const api = `${import.meta.env.VITE_APP_API}api/user/check`;
       const res = await axios.post(api);
       if (!res.data.success) {

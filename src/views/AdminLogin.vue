@@ -28,6 +28,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 const router = useRouter();
 const user = ref({
   username: '',
@@ -40,7 +41,8 @@ const login = async () => {
     const res = await axios.post(api, user.value);
     if(res.data.success) {
       const { token, expired } = res.data;
-      document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+      const tokenAES = CryptoJS.AES.encrypt(token, import.meta.env.VITE_APP_AES).toString();
+      document.cookie = `hexToken=${tokenAES}; expires=${new Date(expired)}`;
       router.push({
         name: 'dashboard',
       })
