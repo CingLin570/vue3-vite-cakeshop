@@ -1,7 +1,7 @@
 <template>
   <SideBarComponent></SideBarComponent>
-  <div>
-    Dashboard
+  <div class="main relative ml-[300px] transition-[spacing]">
+    <router-view/>
   </div>
 </template>
 
@@ -31,4 +31,11 @@
   getToken();
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.active {
+  transform: translateX(-301px);
+  &+.main{
+    margin-left: 0px;
+  }
+}
+</style>

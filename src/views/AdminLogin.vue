@@ -44,7 +44,7 @@ const login = async () => {
       const tokenAES = CryptoJS.AES.encrypt(token, import.meta.env.VITE_APP_AES).toString();
       document.cookie = `hexToken=${tokenAES}; expires=${new Date(expired)}`;
       router.push({
-        name: 'dashboard',
+        name: 'adminProducts',
       })
     }
   } catch (error) {
