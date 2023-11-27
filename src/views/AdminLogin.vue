@@ -3,7 +3,7 @@
     <div class="mx-auto w-[calc(100%-2rem)] md:w-[600px]">
       <h1 class="font-black text-center text-[32px]/[1.2] mb-5">請先登入</h1>
       <div class="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
-        <VForm class="px-5 py-7" v-slot="{ meta }" @submit="login">
+        <VForm class="px-5 py-7" v-slot="{ meta }" @submit.prevent="login">
           <label for="inputEmail" class="font-semibold text-sm text-gray-600 pb-1 block">電子信箱</label>
           <VField type="email" name="username" class="rounded-lg focus:border-brown-700 focus:shadow-brown-700 focus:ring-brown-700-focus px-4 py-3 mt-1 w-full" placeholder="電子信箱"
             id="inputEmail" required autofocus autocomplete="email" label="電子信箱" rules="required|email"

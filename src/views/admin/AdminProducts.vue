@@ -2,7 +2,7 @@
   <div class="flex justify-end mt-5 mx-5 select-none">
     <button
       class="text-white bg-brown-700 hover:bg-brown-700-hover focus:ring-4 focus:outline-none focus:ring-brown-700-focus rounded-lg text-sm px-5 py-2.5 text-center"
-      type="button">
+      type="button" @click="openModal()">
       新增
     </button>
   </div>
@@ -52,9 +52,11 @@
       </tbody>
     </table>
   </div>
+  <ProductModal ref="card"></ProductModal>
 </template>
 
 <script setup>
+import ProductModal from '@/components/admin/ProductModal.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -76,6 +78,11 @@ const getProduct = async () => {
   }
 }
 getProduct();
+
+const card = ref(null);
+const openModal = () => {
+  card.value.tempModal.show();
+}
 </script>
 
 <style scoped></style>
