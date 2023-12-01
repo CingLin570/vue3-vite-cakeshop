@@ -52,7 +52,7 @@
       </tbody>
     </table>
   </div>
-  <ProductModal ref="card"></ProductModal>
+  <ProductModal ref="card" @update-product="updateProduct" :product="tempProduct"></ProductModal>
 </template>
 
 <script setup>
@@ -62,6 +62,7 @@ import axios from 'axios';
 
 const products = ref([]);
 const pagination = ref({});
+const tempProduct = ref({});
 
 // 取得產品
 const getProduct = async () => {
@@ -71,7 +72,6 @@ const getProduct = async () => {
     if (res.data.success) {
       products.value = res.data.products;
       pagination.value = res.data.pagination;
-      console.log(products.value);
     }
   } catch (error) {
     throw new Error(error);
@@ -81,7 +81,22 @@ getProduct();
 
 const card = ref(null);
 const openModal = () => {
+  tempProduct.value = {};
   card.value.tempModal.show();
+}
+
+const updateProduct = async (item) => {
+  try {
+    tempProduct.value = item;
+    let api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product`;
+    const res = await axios.post(api, { data: tempProduct.value });
+    if (res.data.success) {
+      card.value.tempModal.hide();
+      getProduct();
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 </script>
 
