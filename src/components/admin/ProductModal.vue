@@ -5,7 +5,7 @@
     ref="modal">
     <div class="relative w-full max-w-7xl max-h-full">
       <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" ref="form">
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <!-- Modal header -->
         <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
           <h3 class="text-xl font-medium text-gray-900 dark:text-white">

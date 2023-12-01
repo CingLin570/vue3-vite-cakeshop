@@ -2,7 +2,7 @@
   <div class="flex justify-end mt-5 mx-5 select-none">
     <button
       class="text-white bg-brown-700 hover:bg-brown-700-hover focus:ring-4 focus:outline-none focus:ring-brown-700-focus rounded-lg text-sm px-5 py-2.5 text-center"
-      type="button" @click="openModal()">
+      type="button" @click="openModal(true)">
       新增
     </button>
   </div>
@@ -43,7 +43,8 @@
               <button type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                 刪除
               </button>
-              <button type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+              <button type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+              @click="openModal(false, item)">
                 編輯
               </button>
             </div>
@@ -80,8 +81,16 @@ const getProduct = async () => {
 getProduct();
 
 const card = ref(null);
-const openModal = () => {
-  tempProduct.value = {};
+const isNewProduct = ref(false);
+const openModal = (isNew, item) => {
+  if (isNew) {
+    // card.value.form.resetForm();
+    tempProduct.value = {};
+  } else {
+    tempProduct.value = { ...item };
+  }
+  isNewProduct.value = isNew;
+  // console.log(card.value.form.resetForm());
   card.value.tempModal.show();
 }
 
@@ -89,7 +98,13 @@ const updateProduct = async (item) => {
   try {
     tempProduct.value = item;
     let api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product`;
-    const res = await axios.post(api, { data: tempProduct.value });
+    let httpMethod = 'post';
+    // 編輯
+    if (!isNewProduct.value) {
+      api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product/${item.id}`;
+      httpMethod = 'put';
+    }
+    const res = await axios[httpMethod](api, { data: tempProduct.value });
     if (res.data.success) {
       card.value.tempModal.hide();
       getProduct();
