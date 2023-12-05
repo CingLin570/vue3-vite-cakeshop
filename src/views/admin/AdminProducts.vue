@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-end mt-5 mx-5 select-none">
     <button
-      class="text-white bg-brown-700 hover:bg-brown-700-hover focus:ring-4 focus:outline-none focus:ring-brown-700-focus rounded-lg text-sm px-5 py-2.5 text-center"
+      class="text-white bg-primary-700 hover:bg-primary-700-hover focus:ring-4 focus:outline-none focus:ring-primary-700-focus rounded-lg text-sm px-5 py-2.5 text-center"
       type="button" @click="openModal(true)">
       新增
     </button>

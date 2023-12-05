@@ -18,12 +18,14 @@ export default {
     },
     extend: {
       colors: {
-        'brown-700': '#776B5D',
-        'brown-500': '#B0A695',
-        'brown-300': '#EBE3D5',
-        'brown-100': '#F3EEEA',
-        'brown-700-hover': '#6b6053',
-        'brown-700-focus': '#5f554a'
+        'primary': {
+          100: '#F3EEEA',
+          300: '#EBE3D5',
+          500: '#B0A695',
+          700: '#776B5D',
+          '700-hover': '#6b6053',
+          '700-focus': '#5f554a',
+        },
       }
     },
   },
