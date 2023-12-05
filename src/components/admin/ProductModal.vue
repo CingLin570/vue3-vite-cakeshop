@@ -32,7 +32,7 @@
             <div class="mb-3">
               <label for="customFile">或 上傳圖片
               </label>
-              <div role="status">
+              <div role="status" v-if="fileStatus">
                 <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                   viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
@@ -195,6 +195,9 @@ const uploadFile = async () => {
     if (res.data.success) {
       fileStatus.value = false;
       tempProduct.value.imageUrl = res.data.imageUrl;
+    }
+    else {
+      fileStatus.value = false;
     }
   } catch (error) {
     fileStatus.value = false;
