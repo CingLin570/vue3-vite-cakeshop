@@ -143,6 +143,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { Modal } from 'flowbite';
+import axios from 'axios';
 
 const modal = ref(null);
 const tempModal = ref('');
@@ -168,13 +169,37 @@ const props = defineProps({
 // 監聽props傳進來的product
 watch(() => props.product, () => {
   tempProduct.value = { ...props.product };
-},
-  {
-    deep: true
-  })
+  // 多圖預設值
+  if (!tempProduct.value.imagesUrl) {
+    tempProduct.value.imagesUrl = [];
+  }
+},{ deep: true })
+
 // 隱藏modal
 const hideModal = () => {
   tempModal.value.hide();
+}
+
+// 上傳圖片
+const fileInput = ref(null);
+const fileStatus = ref(false);
+const uploadFile = async () => {
+  try {
+    fileStatus.value = true;
+    const uploadedFile = fileInput.value.files[0];
+    const formData = new FormData();
+    formData.append('file-to-upload', uploadedFile);
+    const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/upload`;
+    const res = await axios.post(api, formData);
+    console.log(res);
+    if (res.data.success) {
+      fileStatus.value = false;
+      tempProduct.value.imageUrl = res.data.imageUrl;
+    }
+  } catch (error) {
+    fileStatus.value = false;
+    throw new Error(error);
+  }
 }
 </script>
 
