@@ -11,6 +11,9 @@ import { localize, setLocale } from '@vee-validate/i18n';
 // 引入 VeeValidate 的繁體中文語系檔
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';
 import fields from './fields/zh_TW.json';
+// 引入 vue-loading-overlay
+import Loading from 'vue3-loading-overlay'
+import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 
 import { createPinia } from 'pinia'
 import axios from 'axios'
@@ -46,4 +49,5 @@ app.use(VueAxios, axios)
 app.component('VField', Field);
 app.component('VForm', Form);
 app.component('ErrorMessage', ErrorMessage);
+app.component('LoadingComponent', Loading)
 app.mount('#app')

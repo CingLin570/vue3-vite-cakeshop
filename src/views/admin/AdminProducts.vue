@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :active="isLoading"></LoadingComponent>
   <div class="flex justify-end mt-5 mx-5 select-none">
     <button
       class="text-white bg-primary-700 hover:bg-primary-700-hover focus:ring-4 focus:outline-none focus:ring-primary-700-focus rounded-lg text-sm px-5 py-2.5 text-center"
@@ -65,16 +66,21 @@ const products = ref([]);
 const pagination = ref({});
 const tempProduct = ref({});
 
+const isLoading = ref(false);
+
 // 取得產品
 const getProduct = async () => {
   try {
+    isLoading.value = true;
     const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/products`;
     const res = await axios.get(api);
     if (res.data.success) {
+      isLoading.value = false;
       products.value = res.data.products;
       pagination.value = res.data.pagination;
     }
   } catch (error) {
+    isLoading.value = false;
     throw new Error(error);
   }
 }
@@ -96,6 +102,7 @@ const openModal = (isNew, item) => {
 
 const updateProduct = async (item) => {
   try {
+    isLoading.value = true;
     tempProduct.value = item;
     let api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product`;
     let httpMethod = 'post';
@@ -106,10 +113,12 @@ const updateProduct = async (item) => {
     }
     const res = await axios[httpMethod](api, { data: tempProduct.value });
     if (res.data.success) {
+      isLoading.value = false;
       card.value.tempModal.hide();
       getProduct();
     }
   } catch (error) {
+    isLoading.value = false;
     throw new Error(error);
   }
 }

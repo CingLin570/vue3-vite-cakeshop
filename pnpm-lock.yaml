@@ -38,6 +38,9 @@ dependencies:
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.3.8)
+  vue3-loading-overlay:
+    specifier: ^0.0.0
+    version: 0.0.0(vue@3.3.8)
 
 devDependencies:
   '@rushstack/eslint-patch':
@@ -2885,6 +2888,15 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.5.1
+      vue: 3.3.8
+    dev: false
+
+  /vue3-loading-overlay@0.0.0(vue@3.3.8):
+    resolution: {integrity: sha512-Ly/sOMF+YTPDlVSsL4D8dTasT9A/PW+JlhFaY+sabOJXpafedxD1ADZbpT89XaM2QavRzfmq4s0nhcbr5I7BRQ==}
+    engines: {node: '>=6.9.0', npm: '>=3.10.0'}
+    peerDependencies:
+      vue: ^3.0.0-beta.13
+    dependencies:
       vue: 3.3.8
     dev: false
 

@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :active="isLoading"></LoadingComponent>
   <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
     <div class="mx-auto w-[calc(100%-2rem)] md:w-[600px]">
       <h1 class="font-black text-center text-[32px]/[1.2] mb-5">請先登入</h1>
@@ -34,12 +35,15 @@ const user = ref({
   username: '',
   password: '',
 });
+const isLoading = ref(false);
 // login
 const login = async () => {
   try {
+    isLoading.value = true;
     const api = `${import.meta.env.VITE_APP_API}admin/signin`;
     const res = await axios.post(api, user.value);
     if(res.data.success) {
+      isLoading.value = false;
       const { token, expired } = res.data;
       const tokenAES = CryptoJS.AES.encrypt(token, import.meta.env.VITE_APP_AES).toString();
       document.cookie = `hexToken=${tokenAES}; expires=${new Date(expired)}`;
@@ -48,6 +52,7 @@ const login = async () => {
       })
     }
   } catch (error) {
+    isLoading.value = false;
     throw new Error(error);
   }
 }
