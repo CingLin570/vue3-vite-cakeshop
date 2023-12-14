@@ -19,9 +19,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 // import font awesome icon component
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // import specific icons
-import { faUpRightAndDownLeftFromCenter, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faUpRightAndDownLeftFromCenter, faArrowRightFromBracket, faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
-library.add(faUpRightAndDownLeftFromCenter, faArrowRightFromBracket)
+library.add(faUpRightAndDownLeftFromCenter, faArrowRightFromBracket, faCircleExclamation)
 
 import { createPinia } from 'pinia'
 import axios from 'axios'

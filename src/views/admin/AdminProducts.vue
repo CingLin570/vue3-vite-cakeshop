@@ -41,7 +41,8 @@
           </td>
           <td class="px-6 py-4">
             <div class="flex gap-4">
-              <button type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+              <button type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+              @click="openDelProductModal(item)">
                 刪除
               </button>
               <button type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
@@ -55,10 +56,12 @@
     </table>
   </div>
   <ProductModal ref="card" @update-product="updateProduct" :product="tempProduct" :isNew="isNewProduct"></ProductModal>
+  <DeleteModalComponent ref="deleteCard" :item="tempDelProduct" @delete-item="delProduct"></DeleteModalComponent>
 </template>
 
 <script setup>
 import ProductModal from '@/components/admin/ProductModal.vue';
+import DeleteModalComponent from '@/components/admin/DeleteModalComponent.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -86,6 +89,7 @@ const getProduct = async () => {
 }
 getProduct();
 
+// 新增 or 修改產品Modal
 const card = ref(null);
 const isNewProduct = ref(false);
 const openModal = (isNew, item) => {
@@ -113,6 +117,38 @@ const updateProduct = async (item) => {
     }
     const res = await axios[httpMethod](api, { data: tempProduct.value });
     if (res.data.success) {
+      isLoading.value = false;
+      card.value.tempModal.hide();
+      getProduct();
+    }
+  } catch (error) {
+    isLoading.value = false;
+    throw new Error(error);
+  }
+}
+
+// 刪除產品Modal
+const deleteCard = ref(null);
+const tempDelProduct = ref({});
+const openDelProductModal = (item) => {
+  tempDelProduct.value = { 
+    type: '產品',
+    ...item,
+  };
+  deleteCard.value.tempModal.show();
+}
+
+// 刪除產品
+const delProduct = async (item) => {
+  try {
+    isLoading.value = true;
+    const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/product/${item.id}`;
+    const res = await axios.delete(api);
+    if (res.data.success) {
+      isLoading.value = false;
+      deleteCard.value.tempModal.hide();
+      getProduct();
+    } else {
       isLoading.value = false;
       card.value.tempModal.hide();
       getProduct();
