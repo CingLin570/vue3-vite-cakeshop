@@ -47,7 +47,7 @@
             <!-- 延伸技巧，多圖 -->
             <div class="mt-5" v-if="tempProduct.imagesUrl">
               <div v-for="(image, key) in tempProduct.imagesUrl" class="mb-3 flex" :key="key">
-                <input type="url" class="rounded-s w-full text-black overflow-hidden truncate"
+                <input type="url" name="images" class="rounded-s w-full text-black overflow-hidden truncate"
                   v-model="tempProduct.imagesUrl[key]" placeholder="請輸入連結" />
                 <button type="button"
                   class="border border-red-700 whitespace-nowrap text-red-700 rounded-r px-3 py-2 -ml-[1px] z-10 cursor-pointer hover:text-white hover:bg-red-700"
