@@ -1,4 +1,5 @@
 <template>
+  <LoadingComponent :active="isLoading"></LoadingComponent>
   <div
     class="sidebar select-none z-10 fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-primary-700 flex flex-col transition-transform"
     ref="sidebar">
@@ -34,12 +35,33 @@
 
 <script setup>
 import { ref } from 'vue';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const isLoading = ref(false);
 
 // sidebar外部讀取
 const sidebar = ref(null);
 defineExpose({
   sidebar,
 })
+
+// 登出
+const logout = async () => {
+  try {
+    isLoading.value = true;
+    const api = `${import.meta.env.VITE_APP_API}logout`;
+    const res = await axios.post(api);
+    if (res.data.success) {
+      isLoading.value = false;
+      Cookies.remove('hexToken', { path: '' })
+      router.push('/login');
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 </script>
 
 <style scoped></style>
