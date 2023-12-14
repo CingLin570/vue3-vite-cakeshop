@@ -1,15 +1,12 @@
 <template>
-  <!-- Extra Large Modal -->
   <div tabindex="-1"
     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
     ref="modal">
     <div class="relative w-full max-w-7xl max-h-full">
-      <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-        <!-- Modal header -->
         <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
           <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-            新增產品
+            {{ props.isNew ? '新增' : '編輯' }}產品
           </h3>
           <button type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -21,7 +18,6 @@
             <span class="sr-only">Close modal</span>
           </button>
         </div>
-        <!-- Modal body -->
         <div class="p-6 flex select-none">
           <div class="w-1/3 pr-6 text-base leading-relaxed text-gray-500 dark:text-gray-400">
             <div class="mb-3">
@@ -123,7 +119,6 @@
             </div>
           </div>
         </div>
-        <!-- Modal footer -->
         <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -131,7 +126,7 @@
             確認</button>
           <button type="button"
             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-            >
+            @click="hideModal">
             取消
           </button>
         </div>
@@ -164,6 +159,10 @@ const props = defineProps({
   product: {
     type: Object,
     default() { return {}; },
+  },
+  isNew: {
+    type: Boolean,
+    default: true,
   }
 });
 // 監聽props傳進來的product

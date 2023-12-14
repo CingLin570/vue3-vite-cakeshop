@@ -54,7 +54,7 @@
       </tbody>
     </table>
   </div>
-  <ProductModal ref="card" @update-product="updateProduct" :product="tempProduct"></ProductModal>
+  <ProductModal ref="card" @update-product="updateProduct" :product="tempProduct" :isNew="isNewProduct"></ProductModal>
 </template>
 
 <script setup>
