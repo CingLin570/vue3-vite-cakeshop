@@ -23,12 +23,23 @@
     <button type="button"
       class="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-primary-700-hover active:bg-primary-700-focus text-white"
       @click="logout">
-      <span class="text-[15px] ml-4 text-gray-200 font-bold">登出</span>
+      <span class="text-[15px] text-gray-200 font-bold">
+        登出
+      <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" class="ml-1"/>
+      </span>
     </button>
   </div>
 </template>
 
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+// sidebar外部讀取
+const sidebar = ref(null);
+defineExpose({
+  sidebar,
+})
+</script>
 
 <style scoped></style>

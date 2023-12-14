@@ -14,6 +14,14 @@ import fields from './fields/zh_TW.json';
 // 引入 vue-loading-overlay
 import Loading from 'vue3-loading-overlay'
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
+// import the fontawesome core
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import font awesome icon component
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import specific icons
+import { faUpRightAndDownLeftFromCenter, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+/* add icons to the library */
+library.add(faUpRightAndDownLeftFromCenter, faArrowRightFromBracket)
 
 import { createPinia } from 'pinia'
 import axios from 'axios'
@@ -50,4 +58,6 @@ app.component('VField', Field);
 app.component('VForm', Form);
 app.component('ErrorMessage', ErrorMessage);
 app.component('LoadingComponent', Loading)
+// 註冊 font-awesome
+app.component('font-awesome-icon', FontAwesomeIcon);
 app.mount('#app')

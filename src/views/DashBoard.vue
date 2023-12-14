@@ -1,12 +1,15 @@
 <template>
-  <SideBarComponent></SideBarComponent>
+  <SideBarComponent ref="sidebar"></SideBarComponent>
   <div class="main relative ml-[300px] transition-[spacing]">
+    <NavbarComponent @navbar-toggle="navbarToggle"></NavbarComponent>
     <router-view/>
   </div>
 </template>
 
 <script setup>
   import SideBarComponent from '@/components/admin/SideBarComponent.vue';
+  import NavbarComponent from '@/components/admin/NavbarComponent.vue';
+  import { ref } from 'vue';
   import { useRouter } from 'vue-router'
   import axios from 'axios';
   import CryptoJS from 'crypto-js';
@@ -32,6 +35,12 @@
     }
   }
   getToken();
+
+  // navbar 收合
+  const sidebar = ref(null);
+  const navbarToggle = () => {
+    sidebar.value.sidebar.classList.toggle('active');
+  }
 </script>
 
 <style lang="scss" scoped>
