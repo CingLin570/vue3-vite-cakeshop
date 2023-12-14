@@ -86,7 +86,7 @@ const login = async () => {
   } catch (error) {
     isLoading.value = false;
     emitter.emit('push-message', {
-      style: 'green-500',
+      style: 'red-500',
       title: '登入失敗',
     })
     throw new Error(error);
