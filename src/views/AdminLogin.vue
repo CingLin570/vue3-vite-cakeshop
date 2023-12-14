@@ -58,7 +58,7 @@ const login = async () => {
     const token = Cookies.get('hexToken');
     isLoading.value = true;
     if(!token) {
-      Cookies.remove('hexToken');
+      Cookies.remove('hexToken', { path: '' })
     }
     const api = `${import.meta.env.VITE_APP_API}admin/signin`;
     const res = await axios.post(api, user.value);
