@@ -16,6 +16,9 @@
   const getToken = async () => {
     try {
       const token = Cookies.get('hexToken');
+      if(!token) {
+        router.push('/login');
+      }
       const bytes  = CryptoJS.AES.decrypt(token, import.meta.env.VITE_APP_AES);
       const originalToken = bytes.toString(CryptoJS.enc.Utf8);
       axios.defaults.headers.common.Authorization = originalToken;

@@ -30,6 +30,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import Cookies from 'js-cookie';
+
 const router = useRouter();
 const user = ref({
   username: '',
@@ -39,7 +41,11 @@ const isLoading = ref(false);
 // login
 const login = async () => {
   try {
+    const token = Cookies.get('hexToken');
     isLoading.value = true;
+    if(!token) {
+      Cookies.remove('hexToken');
+    }
     const api = `${import.meta.env.VITE_APP_API}admin/signin`;
     const res = await axios.post(api, user.value);
     if(res.data.success) {
