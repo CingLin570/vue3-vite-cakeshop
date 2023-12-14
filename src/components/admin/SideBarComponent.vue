@@ -34,7 +34,7 @@
 
 
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'vue-router';
@@ -48,6 +48,8 @@ defineExpose({
 })
 
 // 登出
+const emitter = inject('emitter');
+const message = ref(null);
 const logout = async () => {
   try {
     isLoading.value = true;
@@ -57,8 +59,25 @@ const logout = async () => {
       isLoading.value = false;
       Cookies.remove('hexToken', { path: '' })
       router.push('/login');
+      emitter.emit('push-message', {
+        style: 'green-500',
+        title: '登出成功',
+      })
+    } else {
+      isLoading.value = false;
+      message.value = res.data.error.message;
+      emitter.emit('push-message', {
+        style: 'red-500',
+        title: '登出失敗',
+        content: res.data.error.message
+      })
     }
   } catch (error) {
+    isLoading.value = false;
+    emitter.emit('push-message', {
+      style: 'red-500',
+      title: '登出失敗',
+    })
     throw new Error(error);
   }
 }
