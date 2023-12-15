@@ -55,6 +55,7 @@
       </tbody>
     </table>
   </div>
+  <PaginationComponent :page="pagination" @emit-pages="getProduct"></PaginationComponent>
   <ProductModal ref="card" @update-product="updateProduct" :product="tempProduct" :isNew="isNewProduct"></ProductModal>
   <DeleteModalComponent ref="deleteCard" :item="tempDelProduct" @delete-item="delProduct"></DeleteModalComponent>
 </template>
@@ -62,6 +63,7 @@
 <script setup>
 import ProductModal from '@/components/admin/ProductModal.vue';
 import DeleteModalComponent from '@/components/admin/DeleteModalComponent.vue';
+import PaginationComponent from '@/components/admin/PaginationComponent.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
@@ -72,10 +74,10 @@ const tempProduct = ref({});
 const isLoading = ref(false);
 
 // 取得產品
-const getProduct = async () => {
+const getProduct = async (page = 1) => {
   try {
     isLoading.value = true;
-    const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/products`;
+    const api = `${import.meta.env.VITE_APP_API}api/${import.meta.env.VITE_APP_PATH}/admin/products/?page=${page}`;
     const res = await axios.get(api);
     if (res.data.success) {
       isLoading.value = false;
