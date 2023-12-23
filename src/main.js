@@ -30,7 +30,7 @@ import VueAxios from 'vue-axios'
 
 import App from './App.vue'
 import router from './router'
-
+import { currency } from './methods/filters';
 // 使用 Object.keys 將 AllRules 轉為陣列並使用 forEach 迴圈將驗證規則加入 VeeValidate
 Object.keys(AllRules).forEach((rule) => {
   defineRule(rule, AllRules[rule]);
@@ -49,7 +49,9 @@ configure({
 setLocale('zh_TW');
 
 const app = createApp(App)
-
+app.config.globalProperties.$filters = {
+  currency,
+};
 app.use(createPinia())
 app.use(router)
 app.use(VueAxios, axios)

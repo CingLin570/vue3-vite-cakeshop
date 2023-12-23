@@ -30,9 +30,9 @@
             {{ item.title }}
           </td>
           <td class="px-6 py-4">
-            {{ item.origin_price }}
+            {{ $filters.currency(item.origin_price) }}
           </td>
-          <td class="px-6 py-4">{{ item.price }}</td>
+          <td class="px-6 py-4">{{ $filters.currency(item.price) }}</td>
           <td class="px-6 py-4">
             <div class="flex gap-2">
               <span class="text-green-600" v-if="item.is_enabled">啟用</span>
