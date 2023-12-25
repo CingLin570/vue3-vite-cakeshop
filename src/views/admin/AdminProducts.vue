@@ -96,13 +96,12 @@ const card = ref(null);
 const isNewProduct = ref(false);
 const openModal = (isNew, item) => {
   if (isNew) {
-    // card.value.form.resetForm();
+    card.value.form.resetForm();
     tempProduct.value = {};
   } else {
     tempProduct.value = { ...item };
   }
   isNewProduct.value = isNew;
-  // console.log(card.value.form.resetForm());
   card.value.tempModal.show();
 }
 

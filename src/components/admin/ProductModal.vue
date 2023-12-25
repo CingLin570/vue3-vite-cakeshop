@@ -3,6 +3,8 @@
     class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
     ref="modal">
     <div class="relative w-full max-w-7xl max-h-full">
+      <VForm class="relative bg-white rounded-lg shadow dark:bg-gray-700" ref="form"
+        @submit="$emit('update-product', tempProduct)">
       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
         <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
           <h3 class="text-xl font-medium text-gray-900 dark:text-white">
@@ -69,32 +71,38 @@
           <div class="w-2/3 pl-6 col-span-2 text-base leading-relaxed text-gray-500 dark:text-gray-400">
             <div class="mb-3">
               <label for="title">標題</label>
-              <input type="text" id="title" name="title" placeholder="請輸入標題" class="block w-full rounded text-black"
-                v-model="tempProduct.title" label="標題" rules="required">
+              <VField type="text" id="title" name="title" placeholder="請輸入標題" class="block w-full rounded text-black"
+                v-model="tempProduct.title" label="標題" rules="required"></VField>
+              <ErrorMessage name="title" class="text-red-700"></ErrorMessage>
             </div>
             <div class="flex mb-3">
               <div class="w-1/2 pr-3">
                 <label for="category">分類</label>
-                <input type="text" id="category" name="category" placeholder="請輸入分類"
+                <VField type="text" id="category" name="category" placeholder="請輸入分類"
                   class="block w-full rounded text-black" v-model="tempProduct.category" label="分類" rules="required">
+                </VField>
+                <ErrorMessage name="category" class="text-red-700"></ErrorMessage>
               </div>
               <div class="w-1/2 pl-3">
                 <label for="unit">單位</label>
-                <input type="text" id="unit" name="unit" placeholder="請輸入單位" class="block w-full rounded text-black"
-                  v-model="tempProduct.unit" label="分類" rules="required">
+                <VField type="text" id="unit" name="unit" placeholder="請輸入單位" class="block w-full rounded text-black"
+                  v-model="tempProduct.unit" label="分類" rules="required"></VField>
+                <ErrorMessage name="unit" class="text-red-700"></ErrorMessage>
               </div>
             </div>
             <div class="flex mb-3">
               <div class="w-1/2 pr-3">
                 <label for="origin_price">原價</label>
-                <input type="number" id="origin_price" name="origin_price" placeholder="請輸入原價"
+                <VField type="number" id="origin_price" name="origin_price" placeholder="請輸入原價"
                   class="block w-full rounded text-black" v-model.number="tempProduct.origin_price" label="原價"
-                  rules="required|numeric">
+                  rules="required|numeric"></VField>
+                <ErrorMessage name="origin_price" class="text-red-700"></ErrorMessage>
               </div>
               <div class="w-1/2 pl-3">
                 <label for="price">售價</label>
-                <input type="number" id="price" name="price" class="block w-full rounded text-black" placeholder="請輸入售價"
-                  v-model.number="tempProduct.price" label="原價" rules="required|numeric">
+                <VField type="number" id="price" name="price" class="block w-full rounded text-black" placeholder="請輸入售價"
+                  v-model.number="tempProduct.price" label="原價" rules="required|numeric"></VField>
+                <ErrorMessage name="price" class="text-red-700"></ErrorMessage>
               </div>
             </div>
             <hr>
@@ -111,7 +119,7 @@
             <div class="mb-3">
               <div class="flex items-center text-black">
                 <input type="checkbox" id="is_enabled" class="rounded mr-1" v-model="tempProduct.is_enabled"
-                  :true-value="1" :false-value="0" />
+                  true-value="1" false-value="0" />
                 <label for="is_enabled">
                   是否啟用
                 </label>
@@ -121,8 +129,7 @@
         </div>
         <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
           <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            @click="$emit('update-product', tempProduct)">
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             確認</button>
           <button type="button"
             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
@@ -131,6 +138,7 @@
           </button>
         </div>
       </div>
+    </VForm>
     </div>
   </div>
 </template>
