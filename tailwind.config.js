@@ -30,7 +30,20 @@ export default {
     },
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    ({ addComponents }) => {
+      addComponents({
+        '.container': {
+          maxWidth: '100%',
+          '@screen md': {
+            maxWidth: '960px',
+          },
+          '@screen lg': {
+            maxWidth: '1140px',
+          },
+        }
+      })
+    },
   ],
 }
 
