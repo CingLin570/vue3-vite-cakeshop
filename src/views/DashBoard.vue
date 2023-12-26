@@ -21,6 +21,7 @@
       const token = Cookies.get('hexToken');
       if(!token) {
         router.push('/login');
+        return;
       }
       const bytes  = CryptoJS.AES.decrypt(token, import.meta.env.VITE_APP_AES);
       const originalToken = bytes.toString(CryptoJS.enc.Utf8);
@@ -43,7 +44,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .active {
   transform: translateX(-301px);
   &+.main{
